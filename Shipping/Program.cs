@@ -13,7 +13,12 @@ namespace Shipping
 
             var endpointConfiguration = new EndpointConfiguration("Shipping");
 
-            var transport = endpointConfiguration.UseTransport<LearningTransport>();
+            endpointConfiguration.EnableInstallers();
+
+            var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+            transport.UseConventionalRoutingTopology();
+            transport.ConnectionString("host=localhost");
+
             var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
             persistence.DatabaseName("Tutorial_Shipping");
 

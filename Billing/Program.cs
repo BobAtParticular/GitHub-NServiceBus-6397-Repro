@@ -12,7 +12,12 @@ namespace Billing
 
             var endpointConfiguration = new EndpointConfiguration("Billing");
 
-            var transport = endpointConfiguration.UseTransport<LearningTransport>();
+            endpointConfiguration.EnableInstallers();
+
+            var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+            transport.UseConventionalRoutingTopology();
+            transport.ConnectionString("host=localhost");
+
             var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
             persistence.DatabaseName("Tutorial_Billing");
 
