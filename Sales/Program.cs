@@ -16,6 +16,7 @@ namespace Sales
 
             var persistence = endpointConfiguration.UsePersistence<MongoPersistence>();
             persistence.DatabaseName("Tutorial_Sales");
+            persistence.UseTransactions(false);
 
             var endpointInstance = await Endpoint.Start(endpointConfiguration)
                 .ConfigureAwait(false);
